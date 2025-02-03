@@ -6,7 +6,8 @@ import { allure } from "allure-playwright";
 import { ProductPage, productPage } from "../../pages/shopPages/productPage";
 import {faker} from '@faker-js/faker';
 
-test("E2E test @siema", async ({ page }) => {
+
+test("E2E test", async ({ page }) => {
   await MainPage.loadPage(page);
   await MainPage.clickSignInButton(page);
   await LoginPage.isLoaded(page);
