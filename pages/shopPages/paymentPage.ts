@@ -7,7 +7,7 @@ export class paymentPage {
   PAY_BY_BANK_RADIO_BUTTON = 'input[id="payment-option-1"]';
   TERMS_OF_SERVICE_CHECKBOX =
     'input[id="conditions_to_approve[terms-and-conditions]"]';
-
+  PLACE_ORDER_BUTTON = 'div[id="payment-confirmation"] button[type="submit"]';
   public async isLoaded(page) {
     await allure.step("Check if payment page is loaded", async () => {
       await expect(page).toHaveURL(this.PAGE_URL);
@@ -21,6 +21,11 @@ export class paymentPage {
   public async clickTermsOfServiceCheckbox(page) {
     await allure.step("Accepting terms of service", async () => {
       await page.locator(this.TERMS_OF_SERVICE_CHECKBOX).click();
+    });
+  }
+  public async clickPlaceOrderButton(page) {
+    await allure.step("Place order", async () => {
+      await page.locator(this.PLACE_ORDER_BUTTON).click();
     });
   }
 }
