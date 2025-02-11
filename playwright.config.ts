@@ -26,7 +26,6 @@ export default defineConfig<TestOptions>({
     },
     {
       name: "Mobile Chrome",
-      testMatch: "mainPageTest.spec.ts",
       use: { ...devices["Pixel 5"], headless: false },
     },
   ],

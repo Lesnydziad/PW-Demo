@@ -8,6 +8,7 @@ export class productPage {
   private readonly QUANTITY_MORE = 'i[class="material-icons touchspin-up"]';
   private readonly QUANTITY_LESS = 'i[class="material-icons touchspin-down"]';
   private readonly QUANTITY_WANTED = 'input[id="quantity_wanted"]';
+  private readonly NAME_OF_PRODUCT = 'h1[class="h1"]';
   private readonly ADD_TO_CART_BUTTON =
     'button[data-button-action="add-to-cart"]';
   private readonly QUANTITY_OF_ORDERED_PRODUCTS =
@@ -95,6 +96,13 @@ export class productPage {
     await allure.step("Click Proceed To Checkout button", async () => {
       await page.locator(this.PROCEED_TO_CHECKOUT_MAIN).click();
     });
+  }
+  public async getProductName(page) {
+    let name = await allure.step("Getting name of product", async () => {
+      let xD = await page.locator(this.NAME_OF_PRODUCT).textContent();
+      return xD;
+    });
+    return name;
   }
 }
 

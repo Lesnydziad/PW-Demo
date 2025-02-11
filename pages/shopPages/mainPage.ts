@@ -37,6 +37,7 @@ export class mainPage {
         })
        
     }
+    
 
 }
 export const MainPage =

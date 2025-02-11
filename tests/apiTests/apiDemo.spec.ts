@@ -16,7 +16,7 @@ test.beforeEach(async ({ page }) => {
   await page.waitForTimeout(500);
 });
 
-test("has title @siema", async ({ page }) => {
+test("has title @API", async ({ page }) => {
   await page.route(
     "https://conduit-api.bondaracademy.com/api/articles*",
     async (route) => {
@@ -41,7 +41,7 @@ test("has title @siema", async ({ page }) => {
   );
 });
 
-test("delete article", async ({ page, request }) => {
+test("delete article @API", async ({ page, request }) => {
   const articleResponse = await request.post(
     "https://conduit-api.bondaracademy.com/api/articles",
     {
@@ -64,7 +64,7 @@ test("delete article", async ({ page, request }) => {
   );
 });
 
-test("create article", async ({ page, request }) => {
+test("create article @API", async ({ page, request }) => {
   await page.getByText("New article").click();
   await page
     .getByRole("textbox", { name: "Article Title" })

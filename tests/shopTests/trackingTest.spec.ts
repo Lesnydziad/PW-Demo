@@ -19,6 +19,7 @@ test("tracking", async ({ page }) => {
   await MainPage.isLoaded(page);
   await MainPage.clickProduct(page, 4);
   await ProductPage.addProductToCart(page);
+  let product = await ProductPage.getProductName(page);
   await ProductPage.clickProceedToCheckout(page);
   await Cartpage.isLoaded(page);
   await Cartpage.clickCheckoutButton(page);
@@ -51,4 +52,5 @@ test("tracking", async ({ page }) => {
   await GuestOrderTracking.clickSendButton(page);
   await GuestTrackingOrder.isLoaded(page);
   await GuestTrackingOrder.verifyDeliveryAddressData(page, firstName, lastName);
+  await GuestTrackingOrder.verifyNameOfFirstProduct(page, product);
 });
