@@ -1,5 +1,6 @@
 import { expect } from "@playwright/test";
 import { allure } from "allure-playwright";
+import exp from "constants";
 
 export class productPage {
   private readonly PRODUCT_TITLE = 'div[class="col-md-6"] h1';
@@ -9,6 +10,7 @@ export class productPage {
   private readonly QUANTITY_LESS = 'i[class="material-icons touchspin-down"]';
   private readonly QUANTITY_WANTED = 'input[id="quantity_wanted"]';
   private readonly NAME_OF_PRODUCT = 'h1[class="h1"]';
+  private readonly PRICE_OF_PRODUCT = "span[class='current-price-value']";
   private readonly ADD_TO_CART_BUTTON =
     'button[data-button-action="add-to-cart"]';
   private readonly QUANTITY_OF_ORDERED_PRODUCTS =
@@ -20,6 +22,10 @@ export class productPage {
     'div[class="cart-content-btn"] a';
   private readonly PROCEED_TO_CHECKOUT_MAIN =
     'div[class="card cart-summary"]  a[class="btn btn-primary"]';
+  private readonly CONTINUE_SHOPPPING_BUTTON =
+    "div[class='cart-content-btn'] button";
+  private readonly AMMOUNT_OF_PRODUCTS_IN_CART =
+    "span[class='cart-products-count']";
 
   public async clickMoreQuantity(page, value: number) {
     await allure.step("Add more Quantity", async () => {
@@ -97,12 +103,40 @@ export class productPage {
       await page.locator(this.PROCEED_TO_CHECKOUT_MAIN).click();
     });
   }
+  public async clickContinueShoppingButton(page) {
+    await allure.step("Click Continue Shopping  button", async () => {
+      await page.locator(this.CONTINUE_SHOPPPING_BUTTON).click();
+    });
+  }
   public async getProductName(page) {
     let name = await allure.step("Getting name of product", async () => {
-      let xD = await page.locator(this.NAME_OF_PRODUCT).textContent();
-      return xD;
+      let productName = await page.locator(this.NAME_OF_PRODUCT).textContent();
+      return productName;
     });
     return name;
+  }
+  public async verifyAmountOfProducts(page, expectedValue: string) {
+    await allure.step("checking how many products is in cart", async () => {
+      let ammountOnPage = await page
+        .locator(this.AMMOUNT_OF_PRODUCTS_IN_CART)
+        .textContent();
+      await expect(ammountOnPage).toEqual("(" + expectedValue + ")");
+    });
+  }
+  public async clickCartButton(page) {
+    await allure.step("Going to cart", async () => {
+      await page.locator(this.AMMOUNT_OF_PRODUCTS_IN_CART).click();
+    });
+  }
+  public async getPriceOfProduct(page) {
+    let price = await allure.step("Get price of Product", async () => {
+      let priceOfProduct = await page.getAttribute(
+        this.PRICE_OF_PRODUCT,
+        "content"
+      );
+      return Number(priceOfProduct);
+    });
+    return price;
   }
 }
 
